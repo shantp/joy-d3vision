@@ -2,17 +2,18 @@ import 'babel-core/polyfill';
 import React from 'react';
 
 import waves from './common/waves';
-import Line from './views/line';
+import Lines from './views/lines';
+
+import './app.scss';
 
 const DOM_APP_ID = 'app';
-const LINE_COUNT = 1;
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       width: window.innerWidth,
-      height: 200,
+      height: window.innerHeight,
       data: waves.getWaves()
     }
   }
@@ -26,25 +27,21 @@ class App extends React.Component {
   }
 
   updateDimensions() {
-    this.setState({ width: window.innerWidth });
-  }
-
-  renderLine(i) {
-    return (
-      <Line key={i}
-        width = {this.state.width}
-        height = {this.state.height}
-        data = {this.state.data} />
-    )
+    this.setState({
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
   }
 
   render() {
-    let lines = [];
-    for (var i = 0; i < LINE_COUNT; i++) {
-      lines.push(this.renderLine(i));
-    }
     return (
-      <div>{lines}</div>
+      <div>
+        <Lines
+          count = {60}
+          width = {this.state.width}
+          height = {this.state.height}
+          data = {this.state.data} />
+      </div>
     )
   }
 }

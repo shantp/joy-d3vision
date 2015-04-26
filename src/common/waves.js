@@ -5,9 +5,10 @@ class Waves {
   constructor() {
     this.WAVES_ARR = [];
     this.WAVES_MARGIN_SIZE = 60;
-    this.WAVES_CENTER_SIZE = 100;
+    this.WAVES_CENTER_SIZE = 8;
     this.WAVES_PEAK_RANGE = {min: 0, max: 100};
     this.WAVES_PEAK_COUNT = 6;
+    this.WAVES_COUNT = 60;
     this.chance = new Chance();
   }
 
@@ -22,37 +23,45 @@ class Waves {
     return num;
   }
 
-  addInbetweens(n, i) {
-    let lastN = this.WAVES_ARR[i-1];
-    if (lastN) {
-      this.WAVES_ARR.splice(i, 0, this.getRandomInt(n, lastN));
-    }
-  }
-
   // TODO: Add margins
   addMargins() {
 
   }
 
-  addDates(n, i) {
-    let d = new Date();
-    d.setMinutes(d.getMinutes() + i);
-    return {value: n, date: d};
+  addY(y, i) {
+    let x = i;
+    return {x, y};
   }
 
-  getWaves() {
-    this.WAVES_ARR = [];
+  getNewWave() {
+    let wave = [];
     for (var i = 0; i < this.WAVES_PEAK_COUNT; i++) {
       let maxVal = this.WAVES_PEAK_RANGE['max'];
       if (i === 0 || i === this.WAVES_PEAK_COUNT-1) {
         maxVal = maxVal/10;
       }
-      this.WAVES_ARR.push(this.getWeightedInt(maxVal));
+      wave.push(this.getWeightedInt(maxVal));
     }
-    while(this.WAVES_ARR.length < this.WAVES_CENTER_SIZE) {
-      _.eachRight(this.WAVES_ARR, this.addInbetweens.bind(this));
+    for (var k = 0; k < this.WAVES_CENTER_SIZE; k++) {
+      _.eachRight(wave, (n, i) => {
+        let lastN = wave[i-1];
+        if (lastN >= 0) {
+          wave.splice(i, 0, this.getRandomInt(n, lastN));
+        }
+      });
     }
-    this.WAVES_ARR = _.map(this.WAVES_ARR, this.addDates.bind(this));
+    wave = _.map(wave, this.addY.bind(this));
+    return wave;
+  }
+
+  getWaves() {
+    if (this.WAVES_ARR.length > 0) {
+      return this.WAVES_ARR;
+    }
+    for(let i = 0; i < this.WAVES_COUNT; i++) {
+      this.WAVES_ARR.push(this.getNewWave());
+    }
+    this.WAVES_X_SCALE = _.last(_.last(this.WAVES_ARR)).x;
     return this.WAVES_ARR;
   }
 }
