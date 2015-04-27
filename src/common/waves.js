@@ -48,7 +48,6 @@ class Waves {
       if (i === 0 || i === this.WAVES_PEAK_COUNT-1) maxVal = maxVal/10;
       wave.push(this.getWeightedWavePoint(maxVal));
     }
-    console.log(wave);
     for (var k = 0; k < this.WAVES_QUALITY; k++) {
       _.eachRight(wave, (n, i) => {
         let lastN = wave[i-1];
