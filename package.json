@@ -5,7 +5,8 @@
   "author": "Shant Parseghian",
   "main": "src/app.jsx",
   "scripts": {
-    "server": "node server.js"
+    "server": "node server.js",
+    "build": "webpack -p --config webpack.production.config.js"
   },
   "devDependencies": {
     "babel-core": "^5.1.8",

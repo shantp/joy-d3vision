@@ -6,7 +6,7 @@ class Waves {
     this.WAVES_ARR = [];
     this.WAVES_MARGIN_SIZE = 90;
     this.WAVES_QUALITY = 5;
-    this.WAVES_PEAK_RANGE = {min: 0, max: 100};
+    this.WAVES_PEAK_RANGE = {min: 0, max: 200};
     this.WAVES_PEAK_COUNT = 7;
     this.WAVES_COUNT = 60;
     this.chance = new Chance();
@@ -16,10 +16,15 @@ class Waves {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  getWeightedInt(max) {
-    let weighted = _.range(max);
-    let reversed = weighted.slice().reverse();
-    let num = this.chance.weighted(weighted, reversed);
+  getWeightedWavePoint(max) {
+    let points = _.range(max);
+    let weight = [];
+    _.each(points, (point, i) => {
+      if (i/max < .33) weight.push(20);
+      if (i/max >= .33 && i/max < .66) weight.push(2);
+      if (i/max >= .66) weight.push(1);
+    });
+    let num = this.chance.weighted(points, weight);
     return num;
   }
 
@@ -41,8 +46,9 @@ class Waves {
     for (var i = 0; i < this.WAVES_PEAK_COUNT; i++) {
       let maxVal = this.WAVES_PEAK_RANGE['max'];
       if (i === 0 || i === this.WAVES_PEAK_COUNT-1) maxVal = maxVal/10;
-      wave.push(this.getWeightedInt(maxVal));
+      wave.push(this.getWeightedWavePoint(maxVal));
     }
+    console.log(wave);
     for (var k = 0; k < this.WAVES_QUALITY; k++) {
       _.eachRight(wave, (n, i) => {
         let lastN = wave[i-1];
