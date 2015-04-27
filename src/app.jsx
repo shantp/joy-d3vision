@@ -40,6 +40,7 @@ class App extends React.Component {
           count = {60}
           width = {this.state.width}
           height = {this.state.height}
+          waveHeight = {140}
           data = {this.state.data} />
       </div>
     )

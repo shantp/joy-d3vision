@@ -23,7 +23,7 @@ export default class Lines extends React.Component {
       .range([0, width]);
     let y = d3.scale.linear()
       .domain([0, waves.WAVES_PEAK_RANGE['max']])
-      .range([height, 0]);
+      .range([this.props.waveHeight, 0]);
 
     let line = d3.svg.line()
       .x((d) => { return x(d.x); })
@@ -41,7 +41,8 @@ export default class Lines extends React.Component {
       .enter()
       .append('path')
       .attr('class', 'line')
-      .attr('d', line);
+      .attr('d', line)
+      .attr("transform", (d, i) => { return `translate(0,${i*11})`; });
   }
 
   render() {
