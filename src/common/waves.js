@@ -30,8 +30,8 @@ class Waves {
 
   addMargins(wave) {
     for (let i = 0; i < this.WAVES_MARGIN_SIZE; i++) {
-      wave.push(this.chance.weighted([0, 1, -1], [11, 1, 1]));
-      wave.unshift(this.chance.weighted([0, 1, -1], [11, 1, 1]));
+      wave.push(this.chance.weighted([0, 1, -1], [15, 1, 1]));
+      wave.unshift(this.chance.weighted([0, 1, -1], [15, 1, 1]));
     }
     return wave;
   }
@@ -69,6 +69,11 @@ class Waves {
       this.WAVES_ARR.push(this.getNewWave());
     }
     this.WAVES_X_SCALE = _.last(_.last(this.WAVES_ARR)).x;
+    return this.WAVES_ARR;
+  }
+
+  moveWaves() {
+    this.WAVES_ARR.push(this.WAVES_ARR.shift());
     return this.WAVES_ARR;
   }
 }

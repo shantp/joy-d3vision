@@ -11,6 +11,7 @@ export default class Lines extends React.Component {
   }
 
   componentDidUpdate() {
+    console.log(this.props.waves);
     this.drawChart();
   }
 
@@ -37,7 +38,7 @@ export default class Lines extends React.Component {
       .append('g');
 
     svg.selectAll('.line')
-      .data(this.props.data)
+      .data(this.props.waves)
       .enter()
       .append('path')
       .attr('class', 'line')
