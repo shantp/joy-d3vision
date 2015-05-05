@@ -11,17 +11,13 @@ export default class Lines extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log(this.props.waves);
-    this.drawChart();
+    this.updateChart();
   }
 
-  drawChart() {
-    let width = this.props.width;
-    let height = this.props.height;
-
+  d3Line() {
     let x = d3.scale.linear()
       .domain([0, waves.WAVES_X_SCALE])
-      .range([0, width]);
+      .range([0, this.props.width]);
     let y = d3.scale.linear()
       .domain([0, waves.WAVES_PEAK_RANGE['max']])
       .range([this.props.waveHeight, 0]);
@@ -30,11 +26,14 @@ export default class Lines extends React.Component {
       .x((d) => { return x(d.x); })
       .y((d) => { return y(d.y); })
       .interpolate('linear');
+    return line;
+  }
 
+  drawChart() {
     let svg = d3.select('.line-container')
       .append('svg')
-      .attr('width', width)
-      .attr('height', height)
+      .attr('width', this.props.width)
+      .attr('height', this.props.height)
       .append('g');
 
     svg.selectAll('.line')
@@ -42,8 +41,19 @@ export default class Lines extends React.Component {
       .enter()
       .append('path')
       .attr('class', 'line')
-      .attr('d', line)
+      .attr('d', this.d3Line())
       .attr("transform", (d, i) => { return `translate(0,${i*11})`; });
+  }
+
+  updateChart() {
+    let svg = d3.select('.line-container');
+
+    svg.selectAll('.line')
+      .data(this.props.waves)
+      .attr('d', this.d3Line())
+      .transition()
+      .ease('linear')
+      .duration(600)
   }
 
   render() {

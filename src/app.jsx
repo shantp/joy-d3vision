@@ -15,6 +15,10 @@ class App extends React.Component {
     this.state = WaveStore.getState();
   }
 
+  componentDidMount() {
+    this.timer = setInterval(this.tick, 600);
+  }
+
   componentWillMount() {
     WaveStore.listen(this.onChange.bind(this));
     window.addEventListener('resize', this.updateDimensions.bind(this));
@@ -23,6 +27,11 @@ class App extends React.Component {
   componentWillUnmount() {
     WaveStore.unlisten(this.onChange);
     window.removeEventListener('resize', this.updateDimensions);
+    clearInterval(this.timer);
+  }
+
+  tick() {
+    WaveActions.updateWaves();
   }
 
   onChange() {
@@ -36,14 +45,9 @@ class App extends React.Component {
     });
   }
 
-  onMoveClicked() {
-    WaveActions.updateWaves();
-  }
-
   render() {
     return (
       <div>
-        <button onClick={this.onMoveClicked.bind(this)}>Move</button>
         <Lines
           count = {60}
           width = {this.state.width}
