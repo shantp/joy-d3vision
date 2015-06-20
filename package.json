@@ -1,7 +1,7 @@
 {
-  "name": "starter-app",
+  "name": "joy-d3vision",
   "version": "0.0.1",
-  "description": "Base app for react + es6 + babel + webpack",
+  "description": "",
   "author": "Shant Parseghian",
   "main": "src/app.jsx",
   "scripts": {
@@ -24,6 +24,6 @@
     "webpack-dev-server": "^1.8.0"
   },
   "dependencies": {
-    "react": "^0.13.1"
+    "react": "latest"
   }
 }

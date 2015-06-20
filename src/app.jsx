@@ -3,20 +3,20 @@ import React from 'react';
 
 import WaveStore from './stores/waveStore';
 import WaveActions from './actions/waveActions';
-import Lines from './views/lines';
+import LineChart from './views/lineChart';
 
 import './app.scss';
 
 const DOM_APP_ID = 'app';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(...args) {
+    super(...args);
     this.state = WaveStore.getState();
   }
 
   componentDidMount() {
-    this.timer = setInterval(this.tick, 600);
+    // this.timer = setInterval(this.tick, 600);
   }
 
   componentWillMount() {
@@ -48,11 +48,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Lines
-          count = {60}
+        <LineChart
           width = {this.state.width}
           height = {this.state.height}
-          waveHeight = {140}
           waves = {this.state.waves} />
       </div>
     )

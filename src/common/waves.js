@@ -20,8 +20,8 @@ class Waves {
     let points = _.range(max);
     let weight = [];
     _.each(points, (point, i) => {
-      if (i/max < .33) weight.push(20);
-      if (i/max >= .33 && i/max < .66) weight.push(2);
+      if (i/max < .33) weight.push(33);
+      if (i/max >= .33 && i/max < .66) weight.push(3);
       if (i/max >= .66) weight.push(1);
     });
     let num = this.chance.weighted(points, weight);
@@ -68,7 +68,6 @@ class Waves {
     for(let i = 0; i < this.WAVES_COUNT; i++) {
       this.WAVES_ARR.push(this.getNewWave());
     }
-    this.WAVES_X_SCALE = _.last(_.last(this.WAVES_ARR)).x;
     return this.WAVES_ARR;
   }
 
