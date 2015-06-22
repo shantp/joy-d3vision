@@ -10,9 +10,10 @@ export default class LineChart extends React.Component {
       return (
         <Line
           width={this.props.width}
-          y={i*11}
+          y={i*12}
           wave={wave}
-          key={i} />
+          key={i}
+          duration={this.props.duration} />
       )
     });
     return (

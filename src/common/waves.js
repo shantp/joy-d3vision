@@ -4,7 +4,7 @@ import chance from 'chance';
 class Waves {
   constructor() {
     this.WAVES_ARR = [];
-    this.WAVES_MARGIN_SIZE = 90;
+    this.WAVES_MARGIN_SIZE = 60;
     this.WAVES_QUALITY = 5;
     this.WAVES_PEAK_RANGE = {min: 0, max: 200};
     this.WAVES_PEAK_COUNT = 7;
@@ -21,7 +21,7 @@ class Waves {
     let weight = [];
     _.each(points, (point, i) => {
       if (i/max < .33) weight.push(33);
-      if (i/max >= .33 && i/max < .66) weight.push(3);
+      if (i/max >= .33 && i/max < .66) weight.push(2);
       if (i/max >= .66) weight.push(1);
     });
     let num = this.chance.weighted(points, weight);

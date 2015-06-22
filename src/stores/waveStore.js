@@ -6,6 +6,7 @@ class WaveStore {
   constructor() {
     this.width = window.innerWidth;
     this.height = window.innerHeight;
+    this.duration = 1500;
     this.waves = waves.getWaves();
 
     this.bindListeners({

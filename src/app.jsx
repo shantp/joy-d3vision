@@ -16,7 +16,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // this.timer = setInterval(this.tick, 600);
+    this.timer = setInterval(this.tick, this.state.duration);
   }
 
   componentWillMount() {
@@ -51,7 +51,8 @@ class App extends React.Component {
         <LineChart
           width = {this.state.width}
           height = {this.state.height}
-          waves = {this.state.waves} />
+          waves = {this.state.waves}
+          duration = {this.state.duration} />
       </div>
     )
   }
