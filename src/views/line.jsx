@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import d3 from 'd3';
-import _ from 'lodash';
+import {isEqual} from 'lodash';
 
-export default class Line extends React.Component {
+class Line extends React.Component {
   componentWillMount() {
     const x = d3.scale.linear()
       .domain([0, d3.max(this.props.wave, (d) => d.x)])
@@ -17,7 +17,7 @@ export default class Line extends React.Component {
       .x((d) => x(d.x))
       .y((d) => y(d.y));
 
-    let path = line(this.props.wave);
+    const path = line(this.props.wave);
     this.setState({path});
   }
 
@@ -35,18 +35,18 @@ export default class Line extends React.Component {
       .x((d) => x(d.x))
       .y((d) => y(d.y));
 
-    if (!_.isEqual(nextProps.wave, this.props.wave)) {
-      let path = d3.select(React.findDOMNode(this))
+    if (!isEqual(nextProps.wave, this.props.wave)) {
+      const path = d3.select(React.findDOMNode(this))
         .transition()
         .duration(this.props.duration)
         .attr('d', line(this.props.wave))
         .transition()
         .duration(this.props.duration)
-        .attr('d', line(nextProps.wave))
+        .attr('d', line(nextProps.wave));
 
       this.setState({
         lastWave: this.props.wave,
-        path
+        path,
       });
     }
   }
@@ -54,7 +54,15 @@ export default class Line extends React.Component {
   render() {
     return (
       <path d={this.state.path} transform={`translate(0 ${this.props.y})`} className="line" />
-    )
+    );
   }
 }
 
+Line.propTypes = {
+  duration: PropTypes.number,
+  wave: PropTypes.array.isRequired,
+  width: PropTypes.number,
+  y: PropTypes.number,
+};
+
+export default Line;

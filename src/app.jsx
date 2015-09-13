@@ -31,7 +31,7 @@ class App extends React.Component {
   }
 
   tick() {
-    WaveActions.updateWaves();
+    // WaveActions.updateWaves();
   }
 
   onChange() {

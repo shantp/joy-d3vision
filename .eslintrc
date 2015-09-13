@@ -1,22 +1,10 @@
 {
-  "parser": "babel-eslint",
-
+  "extends": "eslint-config-airbnb",
   "env": {
     "browser": true,
     "node": true
   },
-
-  "ecmaFeatures": {
-    "jsx": true,
-    "arrowFunctions": true,
-    "templateStrings": true,
-    "blockBindings": true
-  },
-
-  "rules": {
-    "quotes": "single",
-    "no-mixed-requires": false,
-    "no-underscore-dangle": false,
-    "brace-style": [2, "stroustrup"]
-  }
+  "plugins": [
+    "react"
+  ]
 }

@@ -10,12 +10,12 @@ class WaveStore {
     this.waves = waves.getWaves();
 
     this.bindListeners({
-      handleUpdateWaves: WaveActions.UPDATE_WAVES
+      handleUpdateWaves: WaveActions.UPDATE_WAVES,
     });
   }
 
-  handleUpdateWaves(waves) {
-    this.waves = waves;
+  handleUpdateWaves(update) {
+    this.waves = update;
   }
 }
 
