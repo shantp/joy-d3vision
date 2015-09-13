@@ -4,7 +4,7 @@ module.exports = {
   devtool: "eval",
 
   entry: [
-    "webpack-dev-server/client?http://localhost:9090",
+    "webpack-dev-server/client?http://localhost:7666",
     "webpack/hot/only-dev-server",
     "./src/app"
   ],
@@ -12,7 +12,7 @@ module.exports = {
   output: {
     path: __dirname + "/build/",
     filename: "app.js",
-    publicPath: "http://localhost:9090/build/"
+    publicPath: "http://localhost:7666/build/"
   },
 
   plugins: [
@@ -22,7 +22,7 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loaders: ["react-hot", "babel-loader"]},
+      { test: /\.jsx?$/, exclude: /node_modules/, loaders: ["react-hot", "babel"]},
       { test: /\.scss$/, loader: "style!css!sass?outputStyle=expanded" }
     ]
   },

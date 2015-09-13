@@ -14,11 +14,11 @@ new WebpackDevServer(webpack(config), {
   hot: true,
   noInfo: true,
   historyApiFallback: true
-}).listen(9090, 'localhost', function (err, result) {
+}).listen(7666, 'localhost', function (err, result) {
   if (err) console.log(err);
 });
 
-var server = app.listen(8080, function () {
+var server = app.listen(7777, function () {
   var port = server.address().port;
   console.log('listening @ %s', port);
 });
